@@ -4,10 +4,14 @@ import { Box, Container, Typography, Button } from '@mui/material';
 import { useState, useEffect, useCallback } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
 
   const [loding, setLoading] = useState(false)
+
+  const notify = () => toast("Deleted Successfully!");
 
   useEffect(() => {
     getUsers();
@@ -59,6 +63,7 @@ function Home() {
     if (data) {
       const localData = JSON.parse(data);
       let filteredArray = localData.filter((obj: any) => obj.email !== id);
+      notify()
       setUsers(filteredArray);
     }
   };
@@ -100,6 +105,21 @@ function Home() {
           }
         </Box >
       </Container>
+
+
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Box>
   )
 }
